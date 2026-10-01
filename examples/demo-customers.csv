@@ -1,0 +1,5 @@
+id,name,email,phone,notes
+1,John Doe,john.doe@example.com,+61 412 345 678,"  First demo record  "
+2,Jane Smith,jane_smith@domain.com,+61 498 765 432,"Needs follow-up"
+3,Alice Brown,alice.brown@website.org,+61 401 222 333,"  Extra whitespace  "
+4,Bob Lee,bob.lee@test.co.uk,+61 409 888 777,"Regex replacement test"

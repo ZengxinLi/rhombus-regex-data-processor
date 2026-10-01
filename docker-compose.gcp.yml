@@ -1,7 +1,21 @@
 # Use together with docker-compose.yml on a Google Compute Engine VM.
-# The base mapping remains available locally; Google Cloud's HTTP firewall exposes
-# only this standard port to the public internet.
+# PUBLIC_HOST must be a DNS name resolving to the VM's public IP.
 services:
-  frontend:
+  caddy:
+    image: caddy:2-alpine
+    environment:
+      PUBLIC_HOST: ${PUBLIC_HOST}
     ports:
       - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - frontend
+    restart: unless-stopped
+
+volumes:
+  caddy_data:
+  caddy_config:

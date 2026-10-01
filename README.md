@@ -2,6 +2,12 @@
 
 An end-to-end, asynchronous web application for applying natural-language data-cleaning requests to CSV and Excel files in a user-owned Amazon S3 bucket. The browser is a React/Vite app; Django exposes the API and job records; Celery and Redis run heavy work outside the request path; PySpark executes transformations and persists the full output as Parquet.
 
+## Live demo
+
+The deployed application is available at [https://34-9-23-197.sslip.io](https://34-9-23-197.sslip.io).
+
+Reviewers can test it with a bucket they control and a least-privilege IAM key that permits only `s3:ListBucket` and `s3:GetObject` for that bucket. The app uses HTTPS; submitted credentials are encrypted in short-lived Redis storage and are never saved in a job record.
+
 ## Start locally
 
 Docker Desktop is the only prerequisite.

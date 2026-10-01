@@ -1,4 +1,6 @@
-const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000/api'
+// Keep browser traffic same-origin. Vite proxies /api to the Django service in
+// Docker, so a public deployment does not point visitors at their own localhost.
+const API_BASE = import.meta.env.VITE_API_BASE_URL || '/api'
 
 export type FileItem = { key: string; size: number; last_modified: string | null; file_type: string }
 export type S3Connection = { connection_id: string; bucket: string; files: FileItem[] }

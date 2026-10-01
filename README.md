@@ -10,7 +10,7 @@ Docker Desktop is the only prerequisite.
 docker compose up --build
 ```
 
-Open [http://localhost:5173](http://localhost:5173). The frontend proxies `/api` to Django, so the browser does not need direct access to port 8000.
+Open [http://localhost:5173](http://localhost:5173). The production-built Nginx frontend proxies `/api` to Django, so the browser does not need direct access to port 8000.
 
 For production, copy `.env.example` to `.env`, set a long `DJANGO_SECRET_KEY`, add the production host/origin values, and optionally set `OPENAI_API_KEY`. Docker Compose has safe development defaults so it can start without an `.env` file.
 
@@ -82,4 +82,4 @@ They cover local rule resolution, unsafe regex rejection, the opaque connection 
 
 ## Production deployment notes
 
-This repository is deliberately ready to containerize. On a single demo VM, expose only port 5173 and set `DJANGO_ALLOWED_HOSTS` to the VM's public IP (plus `api` for the internal proxy). The Vite frontend proxies `/api` to the internal Django service, so port 8000 remains bound to the VM loopback interface. For a production deployment, add HTTPS and authentication, point `SPARK_MASTER` at your Spark cluster, use PostgreSQL for job metadata, and mount or replace `app_data` with durable encrypted result storage. Restrict the AWS IAM policy to the exact source bucket and actions required (`s3:ListBucket`, `s3:GetObject`); use a separate result bucket/prefix if outputs need to be retained or downloaded outside the app.
+This repository is deliberately ready to containerize. On a Google Compute Engine demo VM, copy `.env.example` to `.env`, replace `PUBLIC_IP` in the allowed-host/origin settings with the VM's external IP, then run `docker compose -f docker-compose.yml -f docker-compose.gcp.yml up -d --build`. The Nginx frontend is reachable on HTTP port 80 and proxies `/api` to the internal Django service; port 8000 remains bound to the VM loopback interface. For a production deployment, add HTTPS and authentication, point `SPARK_MASTER` at your Spark cluster, use PostgreSQL for job metadata, and mount or replace `app_data` with durable encrypted result storage. Restrict the AWS IAM policy to the exact source bucket and actions required (`s3:ListBucket`, `s3:GetObject`); use a separate result bucket/prefix if outputs need to be retained or downloaded outside the app.

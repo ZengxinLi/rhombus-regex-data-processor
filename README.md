@@ -8,7 +8,7 @@ The deployed application is available at [https://34-9-23-197.sslip.io](https://
 
 ## Demo video
 
-[Watch the 20-second public-deployment walkthrough](demo/regex-data-processor-demo.mp4). It shows the live application, a real S3 CSV selection, a natural-language email-redaction request, and the completed asynchronous result. The credential fields shown in the first frame are intentionally blank.
+[Watch the 36-second step-by-step public-deployment walkthrough](demo/regex-data-processor-demo.mp4). It covers S3 connection, supported-file selection, natural-language email redaction, asynchronous job submission, and the completed result. The credential fields shown in the first frame are intentionally blank.
 
 Reviewers can test it with a bucket they control and a least-privilege IAM key that permits only `s3:ListBucket` and `s3:GetObject` for that bucket. The app uses HTTPS; submitted credentials are encrypted in short-lived Redis storage and are never saved in a job record.
 
